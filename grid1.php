@@ -206,8 +206,8 @@ if ($conn->connect_error) {
 
             error_reporting(0);
             while($row = $result->fetch_assoc()) {
-            var_dump($row);
-            
+            // var_dump($row);
+            $rowId = $row['id'];
             $sql = "SELECT image from images where vehicleid = '$rowId'";
             $img = $conn->query($sql);
             $src = $img->fetch_assoc();
