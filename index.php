@@ -517,7 +517,7 @@ if ($conn->connect_error) {
           <div class="owl-carousel slider-items slider-width-col4 products-grid">
 
             <?php
-            $sql = "SELECT * from vehicle as v join vehicle_details as s where v.id = s.vehicleid and INSTR(stocktype, 'best seller cars') > 0";
+            $sql = "SELECT * from vehicle WHERE stocktype = 'best seller cars';";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
@@ -525,6 +525,8 @@ if ($conn->connect_error) {
             $img = $conn->query($sql);
             $src = $img->fetch_assoc();
             $source = $src['image'];
+            error_reporting(0);
+
             ?>
             
             <!-- Item -->
@@ -678,7 +680,7 @@ if ($conn->connect_error) {
           <div class="owl-carousel slider-items slider-width-col4 products-grid">
             
             <?php
-            $sql = "SELECT * from vehicle as v join vehicle_details as s where v.id = s.vehicleid and INSTR(stocktype, 'deals of the week') > 0";
+            $sql = "SELECT * from vehicle WHERE stocktype = 'deals of the week';";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
@@ -687,7 +689,7 @@ if ($conn->connect_error) {
             $src = $img->fetch_assoc();
             $source = $src['image'];
             ?>
-            
+            <!-- SELECT * FROM `vehicle` as v JOIN `stock_type` as s WHERE v.id = s.vehicleid -->
             <!-- Item -->
             <div class="item" style="margin-top: 0px !important; height: auto;">
               <div class="item-inner">

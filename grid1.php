@@ -185,17 +185,30 @@ if ($conn->connect_error) {
             <?php
             
             if($stockType == "commercial") {
-                $sql = "SELECT * from vehicle as v join vehicle_details as d join stock_type as s where v.id = d.vehicleid and v.id = s.vehicleid and INSTR(s.type, '$stockType') > 0";
+                $sql = "SELECT * FROM `vehicle` as v JOIN `stock_type` AS s WHERE v.id = s.vehicleid AND s.type = 'commercial';";
             } else {
                 $sql = "SELECT * from vehicle as v join vehicle_details as d join stock_type as s where v.id = d.vehicleid and v.id = s.vehicleid and s.enabled = 1";
             }
             
+            // while($pri = $result->fetch_assoc()){
             
+            // echo $id;
+            // $sql = "SELECT * FROM vehicle WHERE id = '$id'";
+            // $result = $conn->query($sql);
+            // var_dump($pri);
+            // // echo $id;
+            // }
+            
+
+            // $p = $result->fetch_assoc();
+            // var_dump($p);y
             $result = $conn->query($sql);
+
             error_reporting(0);
-            if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
-            $sql = "SELECT * from images where id = ".$row['id']."";
+            var_dump($row);
+            
+            $sql = "SELECT image from images where vehicleid = '$rowId'";
             $img = $conn->query($sql);
             $src = $img->fetch_assoc();
             $source = $src['image'];
@@ -220,12 +233,12 @@ if ($conn->connect_error) {
                         }
                     ?>
                 "><?php echo $row['availability']; ?></div>
-                  <div class="item-img-info"><a href="accessories-detail.php?id=<?php echo $row['id']; ?>" title="Retis lapen casen" class="product-image"><img style="height: 200px" src="upload/<?php if($source == null) { echo "Image not found";}else{echo $source; }?>" alt="Retis lapen casen"></a>
+                  <div class="item-img-info"><a href="accessories-detail.php?id=<?php echo $rowId; ?>" title="Retis lapen casen" class="product-image"><img style="height: 200px" src="upload/<?php echo $source; ?>" alt="Retis lapen casen"></a>
                   </div>
                 </div>
                 <div class="item-info">
                   <div class="info-inner">
-                    <div class="item-title"><a href="accessories-detail.php?id=<?php echo $row['id']; ?>" title="Retis lapen casen"><?php echo $row['make']; echo ' '; echo $row['model']; echo ' '; echo $row['year']; ?></a> </div>
+                    <div class="item-title"><a href="accessories-detail.php?id=<?php echo $rowId; ?>" title="Retis lapen casen"><?php echo $row['make']; echo ' '; echo $row['model']; echo ' '; echo $row['year']; ?></a> </div>
                     <div class="item-content">
                       <div class="rating">
                         <div class="ratings">
@@ -252,7 +265,8 @@ if ($conn->connect_error) {
             </li>
             <?php
                 }
-              }
+              
+            // }
             ?>
             </ul>
           </div>

@@ -77,6 +77,15 @@
         font-size: 16px;
         margin-bottom: 15px;
     }
+    #carsList{
+        float: right;
+    }
+    a:hover{
+        text-decoration: none;
+        background-color: black;
+        color: white;
+        transition: 0.5s;
+    }
 </style>
 <body>
     
@@ -171,12 +180,12 @@ $row = mysqli_fetch_array($result);
     
 <input type="hidden" name="id" class="txtField" value="<?php echo $row['id']; ?>">
 
-<div style="padding-bottom: 5px;">
+<div id="carsList" style="padding-bottom: 5px;">
 <a href="retrieve.php">Cars List</a>
 </div>
 
 Chasis No:<br>
-<input type="text" name="chasisno" class="txtField" value="<?php echo $row['chasisno']; ?>">
+<input type="text" name="chasisno" class="txtField" value="<?php echo $row['chasisno']; ?>"><br>
 Make:<br>
 <input type="text" name="make" class="txtField" value="<?php echo $row['make']; ?>">
 <br>

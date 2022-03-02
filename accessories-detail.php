@@ -9,6 +9,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+error_reporting(0);
 
 $id = $_GET['id'];
 
@@ -202,8 +203,8 @@ if(isset($_POST['submit']))
                  $stock = $result->fetch_assoc();
                  ?>
                   <div class="spec-row" id="summarySpecs">
-                  <h2>Specifications</h2>
-                  <h4 style="display: inline-block; margin-left: 50px; font-weight: bold;">Stock Id: <?php echo $stock['stockid']; ?></h4>
+                  <h2>Specifications</h2><br>
+                  <h4 style="display: inline-block; margin-left: 50px; font-weight: bold;">Stock Id: <?php if($stock['stockid'] != null){echo $stock['stockid'];}else{echo "not present";} ; ?></h4>
                   
                      <table width="100%">
                       <tbody>
@@ -300,7 +301,7 @@ if(isset($_POST['submit']))
             <div id="productTabContent" class="tab-content">
               <div class="tab-pane fade in active" id="product_tabs_description">
                 <div class="std">
-                  <p><span style="font-weight: bold;">Commnets: </span><?php echo $detail['comments']; ?></p>
+                  <p> <?php echo $detail['comments']; ?></p>
                 </div>
               </div>
               <div class="tab-pane fade" id="product_tabs_tags">

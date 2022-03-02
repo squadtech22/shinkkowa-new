@@ -95,6 +95,11 @@
         {
             background-color: #A6ACAF;
         }
+		#stockType{
+			width: 100%;
+			height: 80px;
+			border: 1px solid;
+		}
         
     </style>
         
@@ -140,7 +145,10 @@
                         throw new Exception($conn->error);
                     }
                     
-                    $vehicleid = $conn->insert_id;
+					$sql = "SELECT * FROM `vehicle` ORDER BY id DESC limit 1";
+					$result = $conn->query($sql);
+					$p = $result->fetch_assoc();
+					$vehicleid =  $p["id"];
                 
                 	$CarCC = $_POST['carcc'];
                 	$Transmission = $_POST['transmission'];
@@ -163,8 +171,13 @@
                 	if (!$conn->query($sql)) {
                         throw new Exception($conn->error);
                     }
-                
-                	$StockID = $_POST['stockid'];
+					
+					$value ='SELECT `stockid` FROM `stock_country` ORDER BY `id` DESC LIMIT 1';
+					$q = $conn->query($value);
+					$f = $q -> fetch_assoc();
+					$p = $f["stockid"] + 1;
+					
+                	$StockID = $p;
                 	$Country = $CoutryStock;
                 	$EnabledCountry = $_POST['enabledcountry'];
                 
@@ -222,9 +235,10 @@
     	        }
                 
                 $conn->close();
+            
             	
             }
-            
+			
         ?>
         
         <div id="top">
@@ -376,7 +390,16 @@
     		<input class="form-control" type="text" name="comments" placeholder="comments"><br>
     		
     	    <label>Stock Id:</label>
-    		<input class="form-control" type="text" name="stockid" placeholder="stock id"><br>
+    		<div class="form-control">
+				<?php
+				$value ='SELECT `stockid` FROM `stock_country` ORDER BY `id` DESC LIMIT 1';
+				$q = $conn->query($value);
+				$f = $q -> fetch_assoc();
+				$p = $f["stockid"] + 1;
+				echo $p;
+				$conn->close();
+				?>
+			</div><br>
     		
     	    <label>Country Enable:</label><br>
     		<input class="form-check-input" type="radio" name="enabledcountry" value="1" checked>Yes
